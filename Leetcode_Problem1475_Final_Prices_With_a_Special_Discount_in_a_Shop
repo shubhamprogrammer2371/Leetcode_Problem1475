@@ -1,0 +1,83 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* finalPrices(int* prices, int pricesSize, int* returnSize){
+    for(int i = 0 ; i < pricesSize ; i++)
+    {
+        int j = i+1 , done = 0;
+        for( ; j < pricesSize ; j++)
+        {
+            if(prices[j] <= prices[i])
+            {
+                done = 1;
+                break;
+            }
+        }
+        prices[i] -= (done) ? prices[j] : 0;
+    }
+    *returnSize = pricesSize;
+    return prices;
+}
+
+
+----------------------------------------------------------------------------------------------
+
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* finalPrices(int* prices, int pricesSize, int* returnSize){
+    int* answer = malloc(sizeof(int)*pricesSize);
+    for (int i = 0 ; i < pricesSize ; i++)
+    {
+        if (i == (pricesSize-1))
+        {
+            answer[i] = prices[i];
+            break;
+        }
+        for(int j = i + 1 ; j < pricesSize ; j++)
+        {
+            if (prices[i] >= prices[j])
+            {
+                answer[i] = prices[i] - prices[j];
+                break;
+            }
+            else
+            {
+                if (j == (pricesSize-1))
+                {
+                    answer[i] = prices[i];
+                    break;
+                }
+                continue;
+            }
+        }
+    }
+    *returnSize = pricesSize;
+    return answer;
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* finalPrices(int* prices, int pricesSize, int* returnSize){
+    int *answer = (int*)malloc(pricesSize*sizeof(int));
+    *returnSize = pricesSize;
+    for(int i = 0 ; i < pricesSize ; i++)
+    {
+        *(answer+i) = prices[i];
+        for(int j = i + 1 ; j < pricesSize ; j++)
+        {
+            if(prices[j] <= prices[i])
+            {
+                *(answer+i) = (prices[i]-prices[j]);
+                break;
+            }
+        }
+    }
+    return answer;
+}
